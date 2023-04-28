@@ -1,18 +1,15 @@
 package io.github.juris710.emojihubandroid
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -89,8 +86,7 @@ class MainActivity : ComponentActivity() {
                     .defaultMinSize(64.dp, 64.dp)
             )
             Column(
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxHeight()
+                verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxHeight()
             ) {
                 Text("Name : $name")
                 Text("Category : $category")
@@ -106,11 +102,11 @@ class MainActivity : ComponentActivity() {
             EmojiHubAndroidTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         var displayedEmoji by remember {
@@ -140,12 +136,88 @@ class MainActivity : ComponentActivity() {
                         if (errorMessage.isNotEmpty()) {
                             Text(text = errorMessage, color = Color.Red)
                         }
+                        EmojiCategoryList()
                     }
                 }
             }
         }
     }
+
+    private val categories = listOf(
+        "smileys-and-people",
+        "animals-and-nature",
+        "food-and-drink",
+        "travel-and-places",
+        "activities",
+        "objects",
+        "symbols",
+        "flags"
+    )
+
+    @OptIn(ExperimentalMaterialApi::class)
+    @Composable
+    fun CategoryChips(
+        selectedCategory: String,
+        setSelectedCategory: (String) -> Unit
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+        ) {
+            categories.forEach { category ->
+                val selected = selectedCategory == category
+                FilterChip(
+                    selected = selected,
+                    onClick = { setSelectedCategory(category) },
+                    colors = if (selected) ChipDefaults.filterChipColors(
+                        backgroundColor = MaterialTheme.colors.primary,
+                        contentColor = MaterialTheme.colors.onPrimary
+                    ) else ChipDefaults.filterChipColors(),
+                    modifier = Modifier.padding(4.dp)
+                ) {
+                    Text(category)
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun EmojiCategoryList() {
+        var selectedCategory by remember {
+            mutableStateOf("")
+        }
+        var emojis by remember {
+            mutableStateOf<List<Emoji>>(listOf())
+        }
+        val scrollState = rememberScrollState()
+        LaunchedEffect(selectedCategory) {
+            if (selectedCategory == "") {
+                return@LaunchedEffect
+            }
+            try {
+                val newEmojis = handleHttpRequest {
+                    RetrofitInstance.api.getAllEmojisOfCategory(selectedCategory)
+                }
+                emojis = newEmojis ?: listOf()
+            } catch (e: Exception) {
+                Toast.makeText(this@MainActivity, e.message ?: "", Toast.LENGTH_LONG).show()
+            }
+            scrollState.scrollTo(0)
+        }
+        CategoryChips(selectedCategory) { selectedCategory = it }
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .verticalScroll(scrollState)
+        ) {
+            emojis.forEach {
+                EmojiDisplay(emoji = it)
+            }
+        }
+    }
 }
+
 
 @Composable
 fun Greeting(name: String) {
