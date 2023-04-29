@@ -69,9 +69,9 @@ class MainActivity : ComponentActivity() {
         } catch (_: Exception) {
             "?"
         } else ""
-        val name = emoji?.name ?: ""
-        val category = emoji?.category ?: ""
-        val group = emoji?.group ?: ""
+        val name = emoji?.name.orEmpty()
+        val category = emoji?.category.orEmpty()
+        val group = emoji?.group.orEmpty()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -201,7 +201,7 @@ class MainActivity : ComponentActivity() {
                 }
                 emojis = newEmojis ?: listOf()
             } catch (e: Exception) {
-                Toast.makeText(this@MainActivity, e.message ?: "", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, e.message.orEmpty(), Toast.LENGTH_LONG).show()
             }
             scrollState.scrollTo(0)
         }
