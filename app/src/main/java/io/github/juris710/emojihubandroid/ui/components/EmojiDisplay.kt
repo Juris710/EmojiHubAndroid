@@ -4,9 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.min
 import io.github.juris710.emojihubandroid.Emoji
+
+private val EMOJI_TEXT_WIDTH = 64.dp
+private val EMOJI_TEXT_HEIGHT = 64.dp
 
 @Composable
 fun EmojiDisplay(emoji: Emoji?) {
@@ -21,11 +25,14 @@ fun EmojiDisplay(emoji: Emoji?) {
     ) {
         Text(
             text = text,
-            minLines = 1,
-            fontSize = 64.sp,
             modifier = Modifier
                 .padding(16.dp)
-                .defaultMinSize(64.dp, 64.dp)
+                .size(EMOJI_TEXT_WIDTH, EMOJI_TEXT_HEIGHT),
+            fontSize = LocalDensity.current.run {
+                val textSize = min(EMOJI_TEXT_WIDTH * 1.7f, EMOJI_TEXT_HEIGHT)
+                val fontSizeDp = textSize * 0.8f
+                fontSizeDp.toSp()
+            }
         )
         Column(
             verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxHeight()
