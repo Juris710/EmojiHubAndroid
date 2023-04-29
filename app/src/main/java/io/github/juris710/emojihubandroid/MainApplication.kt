@@ -3,7 +3,7 @@ package io.github.juris710.emojihubandroid
 import android.app.Application
 import timber.log.Timber
 
-class MainApplication: Application() {
+class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
