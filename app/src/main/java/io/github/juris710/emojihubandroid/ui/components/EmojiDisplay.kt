@@ -3,6 +3,7 @@ package io.github.juris710.emojihubandroid.ui.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -23,17 +24,21 @@ fun EmojiDisplay(emoji: Emoji?) {
             .fillMaxWidth()
             .height(IntrinsicSize.Max)
     ) {
-        Text(
-            text = text,
+        Box(
             modifier = Modifier
                 .padding(16.dp)
                 .size(EMOJI_TEXT_WIDTH, EMOJI_TEXT_HEIGHT),
-            fontSize = LocalDensity.current.run {
-                val textSize = min(EMOJI_TEXT_WIDTH * 1.7f, EMOJI_TEXT_HEIGHT)
-                val fontSizeDp = textSize * 0.8f
-                fontSizeDp.toSp()
-            }
-        )
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = text,
+                fontSize = LocalDensity.current.run {
+                    val textSize = min(EMOJI_TEXT_WIDTH * 1.7f, EMOJI_TEXT_HEIGHT)
+                    val fontSizeDp = textSize * 0.6f
+                    fontSizeDp.toSp()
+                },
+            )
+        }
         Column(
             verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxHeight()
         ) {
