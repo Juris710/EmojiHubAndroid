@@ -69,7 +69,6 @@ fun EmojiCategoryList() {
     var emojis by remember {
         mutableStateOf<List<Emoji>>(listOf())
     }
-    val scrollState = rememberScrollState()
     LaunchedEffect(selectedCategory) {
         if (selectedCategory == "") {
             return@LaunchedEffect
@@ -82,7 +81,6 @@ fun EmojiCategoryList() {
         } catch (e: Exception) {
             Toast.makeText(context, e.message.orEmpty(), Toast.LENGTH_LONG).show()
         }
-        scrollState.scrollTo(0)
     }
     CategoryChips(selectedCategory) { selectedCategory = it }
     LazyColumn {
