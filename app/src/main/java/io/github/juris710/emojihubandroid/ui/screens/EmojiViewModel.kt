@@ -3,8 +3,8 @@ package io.github.juris710.emojihubandroid.ui.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.juris710.emojihubandroid.model.Emoji
 import io.github.juris710.emojihubandroid.data.EmojiRepository
+import io.github.juris710.emojihubandroid.model.Emoji
 import io.github.juris710.emojihubandroid.model.HttpResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -35,7 +35,7 @@ class EmojiViewModel @Inject constructor(
         }
     }
 
-    fun selectEmojiCategory(category: String){
+    fun selectEmojiCategory(category: String) {
         _uiState.update {
             it.copy(selectedEmojiCategory = category, emojisOfCategory = HttpResult.Loading())
         }
