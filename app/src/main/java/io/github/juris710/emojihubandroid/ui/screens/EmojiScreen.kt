@@ -14,7 +14,7 @@ import io.github.juris710.emojihubandroid.ui.components.RandomEmoji
 fun EmojiScreen(
     emojiUiState: EmojiUiState,
     getRandomEmoji: () -> Unit,
-    getAllEmojisOfCategory: (String) -> Unit
+    selectEmojiCategory: (String) -> Unit
 ) {
     // A surface container using the 'background' color from the theme
     Surface(
@@ -28,8 +28,9 @@ fun EmojiScreen(
                 getRandomEmoji
             )
             EmojiCategoryList(
+                emojiUiState.selectedEmojiCategory,
+                selectEmojiCategory,
                 emojiUiState.emojisOfCategory,
-                getAllEmojisOfCategory
             )
         }
     }

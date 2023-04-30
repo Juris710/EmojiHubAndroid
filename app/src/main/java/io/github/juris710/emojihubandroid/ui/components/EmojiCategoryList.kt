@@ -54,19 +54,11 @@ fun CategoryChips(
 
 @Composable
 fun EmojiCategoryList(
+    selectedCategory: String,
+    selectEmojiCategory: (String) -> Unit,
     emojisOfCategory: HttpResult<List<Emoji>>,
-    getAllEmojisOfCategory: (String) -> Unit
 ) {
-    var selectedCategory by remember {
-        mutableStateOf("")
-    }
-    LaunchedEffect(selectedCategory) {
-        if (selectedCategory == "") {
-            return@LaunchedEffect
-        }
-        getAllEmojisOfCategory(selectedCategory)
-    }
-    CategoryChips(selectedCategory) { selectedCategory = it }
+    CategoryChips(selectedCategory, selectEmojiCategory)
     when (emojisOfCategory) {
         is HttpResult.Success -> {
             LazyColumn {

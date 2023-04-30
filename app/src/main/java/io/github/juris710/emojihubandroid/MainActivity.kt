@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                 EmojiScreen(
                     emojiUiState,
                     emojiViewModel::getRandomEmoji,
-                    emojiViewModel::getAllEmojisOfCategory
+                    emojiViewModel::selectEmojiCategory
                 )
             }
         }

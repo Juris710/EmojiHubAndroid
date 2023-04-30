@@ -15,6 +15,7 @@ import javax.inject.Inject
 data class EmojiUiState(
     val randomEmoji: HttpResult<Emoji>? = null,
     val emojisOfCategory: HttpResult<List<Emoji>> = HttpResult.Success(listOf()),
+    val selectedEmojiCategory: String = ""
 )
 
 @HiltViewModel
@@ -34,9 +35,9 @@ class EmojiViewModel @Inject constructor(
         }
     }
 
-    fun getAllEmojisOfCategory(category: String) {
+    fun selectEmojiCategory(category: String){
         _uiState.update {
-            it.copy(emojisOfCategory = HttpResult.Loading())
+            it.copy(selectedEmojiCategory = category, emojisOfCategory = HttpResult.Loading())
         }
         viewModelScope.launch {
             _uiState.update {
