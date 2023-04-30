@@ -14,8 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.github.juris710.emojihubandroid.Emoji
+import io.github.juris710.emojihubandroid.data.Emoji
+import io.github.juris710.emojihubandroid.data.HttpResult
 
 private val categories = listOf(
     "smileys-and-people",
@@ -58,7 +60,7 @@ fun CategoryChips(
 
 @Composable
 fun EmojiCategoryList(
-    emojisOfCategory: List<Emoji>,
+    emojisOfCategory: HttpResult<List<Emoji>>,
     getEmojisOfCategory: (String) -> Unit
 ) {
     var selectedCategory by remember {
@@ -71,9 +73,17 @@ fun EmojiCategoryList(
         getEmojisOfCategory(selectedCategory)
     }
     CategoryChips(selectedCategory) { selectedCategory = it }
-    LazyColumn {
-        items(emojisOfCategory.size) {
-            EmojiDisplay(emoji = emojisOfCategory[it])
+    when (emojisOfCategory) {
+        is HttpResult.Success -> {
+            LazyColumn {
+                items(emojisOfCategory.data.size) {
+                    EmojiDisplay(emoji = emojisOfCategory.data[it])
+                }
+            }
         }
+        is HttpResult.Error -> {
+            Text(text = emojisOfCategory.message, color = Color.Red)
+        }
+        else -> {}
     }
 }

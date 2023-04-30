@@ -1,9 +1,11 @@
 package io.github.juris710.emojihubandroid
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-class MainApplication : Application() {
+@HiltAndroidApp
+class MainApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())

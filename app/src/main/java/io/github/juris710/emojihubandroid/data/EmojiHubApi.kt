@@ -1,4 +1,4 @@
-package io.github.juris710.emojihubandroid
+package io.github.juris710.emojihubandroid.data
 
 import retrofit2.http.GET
 import retrofit2.http.Path

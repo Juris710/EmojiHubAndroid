@@ -1,4 +1,4 @@
-package io.github.juris710.emojihubandroid
+package io.github.juris710.emojihubandroid.data
 
 import timber.log.Timber
 

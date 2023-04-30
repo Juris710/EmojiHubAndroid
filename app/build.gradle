@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -69,4 +71,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     implementation 'com.jakewharton.timber:timber:5.0.1'
+
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'com.google.dagger:hilt-android:2.46'
+    kapt 'com.google.dagger:hilt-compiler:2.46'
+    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.46'
+    kaptAndroidTest 'com.google.dagger:hilt-compiler:2.46'
+    testImplementation 'com.google.dagger:hilt-android-testing:2.46'
+    kaptTest 'com.google.dagger:hilt-compiler:2.46'
 }

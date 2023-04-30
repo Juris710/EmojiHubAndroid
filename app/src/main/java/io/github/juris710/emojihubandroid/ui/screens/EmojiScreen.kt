@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import io.github.juris710.emojihubandroid.data.HttpResult
 import io.github.juris710.emojihubandroid.ui.components.EmojiCategoryList
 import io.github.juris710.emojihubandroid.ui.components.EmojiDisplay
 
@@ -27,19 +28,23 @@ fun EmojiScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val emojiUiState by emojiViewModel.uiState.collectAsState()
-            EmojiDisplay(emojiUiState.randomEmoji)
+            val randomEmoji = emojiUiState.randomEmoji
+            val emoji = when (randomEmoji) {
+                is HttpResult.Success -> randomEmoji.data
+                else -> null
+            }
+            EmojiDisplay(emoji)
             Button(onClick = {
                 emojiViewModel.getRandomEmoji()
             }) {
                 Text(text = "Show Random Emoji")
             }
-            val errorMessage = emojiUiState.errorMessage
-            if (errorMessage.isNotEmpty()) {
-                Text(text = errorMessage, color = Color.Red)
+            if (randomEmoji is HttpResult.Error) {
+                Text(text = randomEmoji.message, color = Color.Red)
             }
             EmojiCategoryList(
                 emojiUiState.emojisOfCategory,
-                emojiViewModel::getEmojisOfCategory,
+                emojiViewModel::getAllEmojisOfCategory,
             )
         }
     }
