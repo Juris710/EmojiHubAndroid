@@ -76,7 +76,7 @@ fun EmojiCategoryList(
             }
         }
         is HttpResult.Error -> {
-            Text(text = emojisOfCategory.message, color = Color.Red)
+            Text(text = emojisOfCategory.message.asString(), color = Color.Red)
         }
         else -> {
             Box(

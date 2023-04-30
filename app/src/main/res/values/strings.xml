@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EmojiHubAndroid</string>
+    <string name="label_howRandomEmojiButton">Show Random Emoji</string>
+    <string name="text_noRandomEmojiDisplayed">Press the button below to show random Emoji!</string>
+    <string name="errorMessage_ioException">You might not have Internet connection.</string>
+    <string name="errorMessage_httpException">Request Failed with status code %d</string>
+    <string name="errorMessage_unknown">Unknown Error</string>
 </resources>

@@ -1,8 +1,10 @@
 package io.github.juris710.emojihubandroid.data
 
 import dagger.hilt.android.scopes.ActivityScoped
+import io.github.juris710.emojihubandroid.R
 import io.github.juris710.emojihubandroid.model.Emoji
 import io.github.juris710.emojihubandroid.model.HttpResult
+import io.github.juris710.emojihubandroid.model.UiText
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.concurrent.CancellationException
@@ -21,12 +23,16 @@ class EmojiRepository @Inject constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            val errorMessage = when (e) {
-                is IOException -> "You might not have Internet connection."
-                is HttpException -> "Request Failed with status code ${e.code()}"
-                else -> "Unknown Error"
-            }
-            HttpResult.Error(errorMessage)
+            HttpResult.Error(
+                when (e) {
+                    is IOException -> UiText.StringResource(R.string.errorMessage_ioException)
+                    is HttpException -> UiText.StringResource(
+                        R.string.errorMessage_httpException,
+                        e.code()
+                    )
+                    else -> UiText.StringResource(R.string.errorMessage_unknown)
+                }
+            )
         }
     }
 

@@ -10,8 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import io.github.juris710.emojihubandroid.R
 import io.github.juris710.emojihubandroid.model.Emoji
 import io.github.juris710.emojihubandroid.model.HttpResult
+import io.github.juris710.emojihubandroid.model.UiText
 
 @Composable
 fun RandomEmoji(
@@ -24,13 +26,17 @@ fun RandomEmoji(
     ) {
         when (randomEmoji) {
             is HttpResult.Loading -> CircularProgressIndicator()
-            is HttpResult.Error -> Text(text = randomEmoji.message, color = Color.Red)
+            is HttpResult.Error -> Text(text = randomEmoji.message.asString(), color = Color.Red)
             is HttpResult.Success -> EmojiDisplay(randomEmoji.data)
-            else -> Text(text = "Press the button below to show random Emoji!")
+            else -> Text(
+                UiText.StringResource(R.string.text_noRandomEmojiDisplayed).asString()
+            )
         }
     }
     val buttonEnabled = randomEmoji !is HttpResult.Loading
     Button(onClick = getRandomEmoji, enabled = buttonEnabled) {
-        Text(text = "Show Random Emoji")
+        Text(
+            UiText.StringResource(R.string.label_howRandomEmojiButton).asString()
+        )
     }
 }

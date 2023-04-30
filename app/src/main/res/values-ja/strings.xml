@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EmojiHubAndroid</string>
+    <string name="label_howRandomEmojiButton">ランダムな絵文字を表示</string>
+    <string name="text_noRandomEmojiDisplayed">下のボタンを押してランダムな絵文字を表示</string>
+    <string name="errorMessage_ioException">インターネットに接続されていない可能性があります。</string>
+    <string name="errorMessage_httpException">リクエストが status code %d で失敗しました。</string>
+    <string name="errorMessage_unknown">想定外のエラーです。</string>
+</resources>
