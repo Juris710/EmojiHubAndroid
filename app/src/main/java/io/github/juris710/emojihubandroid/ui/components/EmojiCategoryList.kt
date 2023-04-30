@@ -55,7 +55,7 @@ fun CategoryChips(
 @Composable
 fun EmojiCategoryList(
     emojisOfCategory: HttpResult<List<Emoji>>,
-    getEmojisOfCategory: (String) -> Unit
+    getAllEmojisOfCategory: (String) -> Unit
 ) {
     var selectedCategory by remember {
         mutableStateOf("")
@@ -64,7 +64,7 @@ fun EmojiCategoryList(
         if (selectedCategory == "") {
             return@LaunchedEffect
         }
-        getEmojisOfCategory(selectedCategory)
+        getAllEmojisOfCategory(selectedCategory)
     }
     CategoryChips(selectedCategory) { selectedCategory = it }
     when (emojisOfCategory) {
