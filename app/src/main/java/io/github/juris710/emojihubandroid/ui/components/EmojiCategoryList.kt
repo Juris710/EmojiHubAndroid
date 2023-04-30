@@ -1,6 +1,5 @@
 package io.github.juris710.emojihubandroid.ui.components
 
-import android.widget.Toast
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,11 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import io.github.juris710.emojihubandroid.Emoji
-import io.github.juris710.emojihubandroid.RetrofitInstance
-import io.github.juris710.emojihubandroid.handleHttpRequest
 
 private val categories = listOf(
     "smileys-and-people",
@@ -61,31 +57,23 @@ fun CategoryChips(
 }
 
 @Composable
-fun EmojiCategoryList() {
-    val context = LocalContext.current
+fun EmojiCategoryList(
+    emojisOfCategory: List<Emoji>,
+    getEmojisOfCategory: (String) -> Unit
+) {
     var selectedCategory by remember {
         mutableStateOf("")
-    }
-    var emojis by remember {
-        mutableStateOf<List<Emoji>>(listOf())
     }
     LaunchedEffect(selectedCategory) {
         if (selectedCategory == "") {
             return@LaunchedEffect
         }
-        try {
-            val newEmojis = handleHttpRequest {
-                RetrofitInstance.api.getAllEmojisOfCategory(selectedCategory)
-            }
-            emojis = newEmojis ?: listOf()
-        } catch (e: Exception) {
-            Toast.makeText(context, e.message.orEmpty(), Toast.LENGTH_LONG).show()
-        }
+        getEmojisOfCategory(selectedCategory)
     }
     CategoryChips(selectedCategory) { selectedCategory = it }
     LazyColumn {
-        items(emojis.size) {
-            EmojiDisplay(emoji = emojis[it])
+        items(emojisOfCategory.size) {
+            EmojiDisplay(emoji = emojisOfCategory[it])
         }
     }
 }
