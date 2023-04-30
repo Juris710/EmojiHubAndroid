@@ -25,9 +25,7 @@ fun EmojiScreen(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val emojiUiState by emojiViewModel.uiState.collectAsState()
             val randomEmoji = emojiUiState.randomEmoji
@@ -36,9 +34,10 @@ fun EmojiScreen(
                 else -> null
             }
             EmojiDisplay(emoji)
+            val buttonEnabled = randomEmoji == null || randomEmoji !is HttpResult.Loading
             Button(onClick = {
                 emojiViewModel.getRandomEmoji()
-            }) {
+            }, enabled = buttonEnabled) {
                 Text(text = "Show Random Emoji")
             }
             if (randomEmoji is HttpResult.Error) {
