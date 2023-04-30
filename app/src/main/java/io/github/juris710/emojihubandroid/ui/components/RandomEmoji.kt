@@ -1,8 +1,7 @@
 package io.github.juris710.emojihubandroid.ui.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -19,27 +18,19 @@ fun RandomEmoji(
     randomEmoji: HttpResult<Emoji>?,
     getRandomEmoji: () -> Unit
 ) {
-    if (randomEmoji is HttpResult.Loading) {
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
-                .size(64.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
+    Box(
+        modifier = Modifier.defaultMinSize(100.dp, 100.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        when (randomEmoji) {
+            is HttpResult.Loading -> CircularProgressIndicator()
+            is HttpResult.Error -> Text(text = randomEmoji.message, color = Color.Red)
+            is HttpResult.Success -> EmojiDisplay(randomEmoji.data)
+            else -> Text(text = "Press the button below to show random Emoji!")
         }
-    } else {
-        val emoji = when (randomEmoji) {
-            is HttpResult.Success -> randomEmoji.data
-            else -> null
-        }
-        EmojiDisplay(emoji)
     }
-    val buttonEnabled = randomEmoji == null || randomEmoji !is HttpResult.Loading
+    val buttonEnabled = randomEmoji !is HttpResult.Loading
     Button(onClick = getRandomEmoji, enabled = buttonEnabled) {
         Text(text = "Show Random Emoji")
-    }
-    if (randomEmoji is HttpResult.Error) {
-        Text(text = randomEmoji.message, color = Color.Red)
     }
 }
