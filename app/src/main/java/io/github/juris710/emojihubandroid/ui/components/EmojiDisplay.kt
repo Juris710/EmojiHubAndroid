@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
-import io.github.juris710.emojihubandroid.data.Emoji
+import io.github.juris710.emojihubandroid.model.Emoji
 
 private val EMOJI_TEXT_WIDTH = 64.dp
 private val EMOJI_TEXT_HEIGHT = 64.dp

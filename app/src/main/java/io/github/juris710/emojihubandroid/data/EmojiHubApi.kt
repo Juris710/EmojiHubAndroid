@@ -1,5 +1,6 @@
 package io.github.juris710.emojihubandroid.data
 
+import io.github.juris710.emojihubandroid.model.Emoji
 import retrofit2.http.GET
 import retrofit2.http.Path
 

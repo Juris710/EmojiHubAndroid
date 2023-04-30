@@ -10,8 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import io.github.juris710.emojihubandroid.data.Emoji
-import io.github.juris710.emojihubandroid.data.HttpResult
+import io.github.juris710.emojihubandroid.model.Emoji
+import io.github.juris710.emojihubandroid.model.HttpResult
 
 private val categories = listOf(
     "smileys-and-people",

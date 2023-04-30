@@ -3,9 +3,9 @@ package io.github.juris710.emojihubandroid.ui.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.juris710.emojihubandroid.data.Emoji
+import io.github.juris710.emojihubandroid.model.Emoji
 import io.github.juris710.emojihubandroid.data.EmojiRepository
-import io.github.juris710.emojihubandroid.data.HttpResult
+import io.github.juris710.emojihubandroid.model.HttpResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

@@ -1,6 +1,8 @@
 package io.github.juris710.emojihubandroid.data
 
 import dagger.hilt.android.scopes.ActivityScoped
+import io.github.juris710.emojihubandroid.model.Emoji
+import io.github.juris710.emojihubandroid.model.HttpResult
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.concurrent.CancellationException
