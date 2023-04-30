@@ -15,7 +15,6 @@ import javax.inject.Inject
 data class EmojiUiState(
     val randomEmoji: HttpResult<Emoji>? = null,
     val emojisOfCategory: HttpResult<List<Emoji>> = HttpResult.Success(listOf()),
-//    val errorMessage: String = ""
 )
 
 @HiltViewModel
