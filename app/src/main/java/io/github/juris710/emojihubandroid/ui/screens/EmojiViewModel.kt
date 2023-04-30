@@ -24,25 +24,9 @@ class EmojiViewModel : ViewModel() {
     fun getRandomEmoji() {
         viewModelScope.launch {
             try {
-                val response = RetrofitInstance.api.getRandomEmoji()
-                if (!response.isSuccessful) {
-                    _uiState.update {
-                        it.copy(
-                            randomEmoji = null,
-                            errorMessage = "Request Failed with status code ${response.code()}"
-                        )
-                    }
-                    return@launch
-                }
-                val emoji = response.body()
-                if (emoji == null) {
-                    _uiState.update {
-                        it.copy(randomEmoji = null, errorMessage = "Response body is empty")
-                    }
-                } else {
-                    _uiState.update {
-                        it.copy(randomEmoji = emoji, errorMessage = "")
-                    }
+                val emoji = RetrofitInstance.api.getRandomEmoji()
+                _uiState.update {
+                    it.copy(randomEmoji = emoji, errorMessage = "")
                 }
             } catch (e: CancellationException) {
                 throw e
@@ -62,30 +46,12 @@ class EmojiViewModel : ViewModel() {
     fun getEmojisOfCategory(category: String) {
         viewModelScope.launch {
             try {
-                val response = RetrofitInstance.api.getAllEmojisOfCategory(category)
-                if (!response.isSuccessful) {
-                    _uiState.update {
-                        it.copy(
-                            emojisOfCategory = listOf(),
-                            errorMessage = "Request Failed with status code ${response.code()}"
-                        )
-                    }
-                }
-                val emojis = response.body()
-                if (emojis == null) {
-                    _uiState.update {
-                        it.copy(
-                            emojisOfCategory = listOf(),
-                            errorMessage = "Response body is empty"
-                        )
-                    }
-                } else {
-                    _uiState.update {
-                        it.copy(
-                            emojisOfCategory = emojis,
-                            errorMessage = ""
-                        )
-                    }
+                val emojis = RetrofitInstance.api.getAllEmojisOfCategory(category)
+                _uiState.update {
+                    it.copy(
+                        emojisOfCategory = emojis,
+                        errorMessage = ""
+                    )
                 }
             } catch (e: CancellationException) {
                 throw e
