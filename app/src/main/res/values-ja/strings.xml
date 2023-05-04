@@ -6,4 +6,5 @@
     <string name="errorMessage_ioException">インターネットに接続されていない可能性があります。</string>
     <string name="errorMessage_httpException">リクエストが status code %d で失敗しました。</string>
     <string name="errorMessage_unknown">想定外のエラーです。</string>
+    <string name="description_show_licenses_icon">オープンソースライセンス一覧を表示</string>
 </resources>

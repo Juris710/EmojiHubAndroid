@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 android {
@@ -79,4 +80,6 @@ dependencies {
     kaptAndroidTest 'com.google.dagger:hilt-compiler:2.46'
     testImplementation 'com.google.dagger:hilt-android-testing:2.46'
     kaptTest 'com.google.dagger:hilt-compiler:2.46'
+
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.1'
 }

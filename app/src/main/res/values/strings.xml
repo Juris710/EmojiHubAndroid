@@ -5,4 +5,5 @@
     <string name="errorMessage_ioException">You might not have Internet connection.</string>
     <string name="errorMessage_httpException">Request Failed with status code %d</string>
     <string name="errorMessage_unknown">Unknown Error</string>
+    <string name="description_show_licenses_icon">Show open source licenses list</string>
 </resources>
